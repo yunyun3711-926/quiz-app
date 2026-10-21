@@ -1,0 +1,285 @@
+/* 色やサイズの共通設定 */
+:root {
+  --color-bg: #f4f6fa;
+  --color-card: #ffffff;
+  --color-text: #2b2f36;
+  --color-sub: #6b7280;
+  --color-primary: #e85d8f;
+  --color-primary-hover: #d0457a;
+  --color-border: #d6dbe4;
+  --color-correct: #1f9d55;
+  --color-correct-bg: #e6f6ec;
+  --color-wrong: #d64545;
+  --color-wrong-bg: #fdecec;
+  --radius: 12px;
+  --bunny-body: #ffffff;
+  --bunny-line: #5a4650;
+  --bunny-pink: #ffc2d6;
+  --bunny-cheek: #ffa8c5;
+  --bunny-tear: #8fd3ff;
+  --bunny-sparkle: #ffd23f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: "Hiragino Sans", "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif;
+  line-height: 1.6;
+}
+
+.container {
+  width: 100%;
+  max-width: 560px;
+  padding: 32px 24px;
+  background: var(--color-card);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.screen {
+  text-align: center;
+}
+
+/* hidden 属性を確実に非表示にする */
+[hidden] {
+  display: none !important;
+}
+
+.title {
+  margin: 0 0 16px;
+  font-size: 1.75rem;
+}
+
+.lead {
+  margin: 0 0 24px;
+  color: var(--color-sub);
+}
+
+/* ボタン */
+.primary-button {
+  padding: 12px 32px;
+  border: none;
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.primary-button:hover {
+  background: var(--color-primary-hover);
+}
+
+/* 進捗表示 */
+.progress {
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  color: var(--color-sub);
+}
+
+.progress-bar {
+  height: 6px;
+  margin-top: 6px;
+  background: var(--color-border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0;
+  background: var(--color-primary);
+  transition: width 0.3s;
+}
+
+/* 問題文と選択肢 */
+.question {
+  margin: 0 0 24px;
+  font-size: 1.25rem;
+  text-align: left;
+}
+
+.choices {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.choice-button {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--color-text);
+  font-size: 1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.choice-button:hover:not(:disabled) {
+  border-color: var(--color-primary);
+}
+
+.choice-button:disabled {
+  cursor: default;
+}
+
+.choice-button.correct {
+  border-color: var(--color-correct);
+  background: var(--color-correct-bg);
+}
+
+.choice-button.wrong {
+  border-color: var(--color-wrong);
+  background: var(--color-wrong-bg);
+}
+
+/* フィードバック */
+.feedback {
+  min-height: 1.6em;
+  margin: 0 0 20px;
+  font-weight: bold;
+}
+
+.feedback.correct {
+  color: var(--color-correct);
+}
+
+.feedback.wrong {
+  color: var(--color-wrong);
+}
+
+/* うさぎのキャラクター */
+.bunny {
+  display: block;
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 8px;
+}
+
+.bunny-body {
+  fill: var(--bunny-body);
+  stroke: var(--bunny-line);
+  stroke-width: 3;
+}
+
+.bunny-pink {
+  fill: var(--bunny-pink);
+}
+
+.bunny-cheek {
+  fill: var(--bunny-cheek);
+  opacity: 0.7;
+}
+
+.bunny-fill {
+  fill: var(--bunny-line);
+}
+
+.bunny-white {
+  fill: #fff;
+}
+
+.bunny-stroke {
+  fill: none;
+  stroke: var(--bunny-line);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.bunny-tear {
+  fill: var(--bunny-tear);
+}
+
+.bunny-sparkle {
+  fill: var(--bunny-sparkle);
+}
+
+/* 耳はランクに合わせて角度を変える */
+.ear {
+  transition: transform 0.4s;
+}
+
+.ear-left {
+  transform-origin: 70px 95px;
+}
+
+.ear-right {
+  transform-origin: 130px 95px;
+}
+
+.bunny[data-rank="low"] .ear-left {
+  transform: rotate(-50deg);
+}
+
+.bunny[data-rank="low"] .ear-right {
+  transform: rotate(50deg);
+}
+
+/* ランクに合った表情だけを表示する */
+.face {
+  display: none;
+}
+
+.bunny[data-rank="perfect"] .face-perfect,
+.bunny[data-rank="good"] .face-good,
+.bunny[data-rank="average"] .face-average,
+.bunny[data-rank="low"] .face-low {
+  display: inline;
+}
+
+.bunny[data-rank="perfect"] {
+  animation: bunny-jump 0.9s ease-in-out infinite;
+}
+
+@keyframes bunny-jump {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bunny[data-rank="perfect"] {
+    animation: none;
+  }
+}
+
+/* 結果 */
+.score {
+  margin: 0 0 8px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 24px 16px;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .question {
+    font-size: 1.1rem;
+  }
+}
